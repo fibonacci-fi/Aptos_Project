@@ -1,0 +1,35 @@
+substitutions:
+  _SERVICE: 'aptos-indexer'
+  _PROJECT_ID: 'fib-architecture'
+  _REGION: 'europe-central2'        
+  _TIMESCALEDB_URL: ''            # This will be passed during build from GitHub Secrets
+  _CPUS: '2'                      
+  _MEMORY: '1024Mi'               
+
+steps:
+  # Step 1: Build Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/${_PROJECT_ID}/${_SERVICE}', '.']
+
+  # Step 2: Push Docker image to Google Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/${_PROJECT_ID}/${_SERVICE}']
+
+  # Step 3: Deploy the service to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'gcloud'
+    args:
+      [
+        'run', 'deploy', '${_SERVICE}',
+        '--image', 'gcr.io/${_PROJECT_ID}/${_SERVICE}',
+        '--region', '${_REGION}',
+        '--platform', 'managed',
+        '--allow-unauthenticated',
+        '--cpu', '${_CPUS}',
+        '--memory', '${_MEMORY}',
+        "--port","1000",
+        '--set-env-vars', 'TIMESCALEDB_URL=${_TIMESCALEDB_URL}',
+      ]
+
+images:
+  - 'gcr.io/${_PROJECT_ID}/${_SERVICE}'

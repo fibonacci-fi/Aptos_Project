@@ -1,0 +1,19 @@
+{
+  "name": "python",
+  "version": "1.0.0",
+  "description": "- Python 3.7 or higher\r - `pip` version 9.0.1 or higher",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@pontem/liquidswap-sdk": "^0.7.3",
+    "@thalalabs/router-sdk": "^3.4.0",
+    "fs": "^0.0.1-security",
+    "js-yaml": "^4.1.0",
+    "tslib": "^2.7.0"
+  }
+}

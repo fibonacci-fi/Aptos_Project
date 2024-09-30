@@ -1,0 +1,23 @@
+steps:
+  # Build the container image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/fib-architecture/aptos-backend', '.']
+  # Push the container image to Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/fib-architecture/aptos-backend']
+  # Deploy container image to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+    - 'run'
+    - 'deploy'
+    - 'aptos-backend'
+    - '--image'
+    - 'gcr.io/fib-architecture/aptos-backend'
+    - '--region'
+    - 'europe-central2'
+    - '--platform'
+    - 'managed'
+    - '--allow-unauthenticated'
+images:
+  - 'gcr.io/fib-architecture/aptos-backend'

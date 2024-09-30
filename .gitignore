@@ -1,0 +1,28 @@
+# Ignore node_modules directory (Node.js dependencies)
+node_modules/
+
+# Ignore Python cache files
+__pycache__/
+
+# Ignore environment variables file (contains sensitive information)
+.env
+
+# Ignore Docker build artifacts and logs
+.dockerignore
+*.log
+
+# Ignore any other build artifacts or temporary files
+*.tmp
+*.out
+
+# Ignore IDE/editor settings (optional)
+.vscode/
+.idea/
+*.swp
+
+# Ignore any backup files or system-generated files (optional)
+*.bak
+.DS_Store
+Thumbs.db
+
+venv/
