@@ -1,28 +1,21 @@
-# Ignore node_modules directory (Node.js dependencies)
+# Node modules directory
 node_modules/
 
-# Ignore Python cache files
+# Python bytecode files
 __pycache__/
 
-# Ignore environment variables file (contains sensitive information)
-.env
+# Jupyter notebook checkpoints
+.ipynb_checkpoints/
 
-# Ignore Docker build artifacts and logs
-.dockerignore
+# Log files
 *.log
 
-# Ignore any other build artifacts or temporary files
-*.tmp
-*.out
+# Environment variable file
+.env
 
-# Ignore IDE/editor settings (optional)
-.vscode/
-.idea/
-*.swp
+# Docker files
+.dockerignore
 
-# Ignore any backup files or system-generated files (optional)
-*.bak
-.DS_Store
-Thumbs.db
-
-venv/
+# Optional: Ignore any operating system-specific files
+.DS_Store        # macOS
+Thumbs.db        # Windows

@@ -22,10 +22,6 @@ from time import perf_counter, sleep
 import traceback
 from utils.processor_name import ProcessorName
 from processors.example_event_processor.processor import ExampleEventProcessor
-from processors.nft_orderbooks.nft_marketplace_processor import NFTMarketplaceProcesser
-from processors.nft_marketplace_v2.processor import NFTMarketplaceV2Processor
-from processors.coin_flip.processor import CoinFlipProcessor
-from processors.aptos_ambassador_token.processor import AptosAmbassadorTokenProcessor
 import asyncio
 import logging
 import queue
@@ -489,15 +485,6 @@ class IndexerProcessorServer:
         match processor_config.type:
             case ProcessorName.EXAMPLE_EVENT_PROCESSOR.value:
                 self.processor = ExampleEventProcessor()
-            case ProcessorName.NFT_MARKETPLACE_V1_PROCESSOR.value:
-                self.processor = NFTMarketplaceProcesser()
-            case ProcessorName.NFT_MARKETPLACE_V2_PROCESSOR.value:
-                assert isinstance(processor_config, NFTMarketplaceV2Config)
-                self.processor = NFTMarketplaceV2Processor(processor_config)
-            case ProcessorName.COIN_FLIP.value:
-                self.processor = CoinFlipProcessor()
-            case ProcessorName.EXAMPLE_AMBASSADOR_TOKEN_PROCESSOR.value:
-                self.processor = AptosAmbassadorTokenProcessor()
             case _:
                 raise Exception(
                     "Invalid processor name"

@@ -24,7 +24,7 @@ RUN apt-get update && apt-get install -y \
     && npm install -g ts-node \
     && npm install -g npx
 
-ENV HOST 0.0.0.0
+ENV HOST=0.0.0.0
 
 WORKDIR /app
 COPY poetry.lock pyproject.toml /app/

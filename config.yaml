@@ -1,0 +1,17 @@
+health_check_port: 1000
+server_config:
+    processor_config: 
+        type: "python_example_event_processor"
+    indexer_grpc_data_service_address: "grpc.mainnet.aptoslabs.com:443"
+    auth_token: ""
+    postgres_connection_string: ""
+    # Optional. Start processor at starting_version
+    starting_version: 1946197507
+    # Optional. Stop processor after ending_version.
+    # ending_version: 1946197507
+
+
+    # Optional. HTTP2 ping interval in seconds to detect if the connection is still alive. Defaults to 30.
+    indexer_grpc_http2_ping_interval_in_secs: 30
+    # Optional. HTTP2 ping timeout in seconds to detect if the connection is still alive. Defaults to 10
+    indexer_grpc_http2_ping_timeout_in_secs: 10

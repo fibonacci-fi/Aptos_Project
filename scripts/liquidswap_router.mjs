@@ -1,7 +1,12 @@
 import { argv, exit } from 'process';
 import {SDK} from "@pontem/liquidswap-sdk"; // Ensure SDK is compatible with ES module imports
+// Load environment variables
+import * as dotenv from 'dotenv';
 
-export const NODE_URL = "https://fullnode.mainnet.aptoslabs.com/v1";
+const env = dotenv.config({
+  path: './.env'
+});
+export const NODE_URL = process.env.RPC_URL || 'https://fullnode.devnet.aptoslabs.com/v1';
 export const MODULES_ACCOUNT = '0x190d44266241744264b964a37b8f09863167a12d3e70cda39376cfb4e3561e12';
 export const RESOURCE_ACCOUNT = '0x05a97986a9d031c4567e15b797be516910cfcb4156312482efc6a19c0a30c948';
 

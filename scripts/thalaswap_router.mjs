@@ -1,5 +1,15 @@
 import { ThalaswapRouter } from "@thalalabs/router-sdk";
 import { Network } from "@aptos-labs/ts-sdk";
+// Load environment variables
+import * as dotenv from 'dotenv';
+
+const env = dotenv.config({
+  path: './.env'
+});
+
+if (env.error) {
+  throw new Error('Error loading environment variables');
+}
 
 // Check if the required parameters are provided
 if (process.argv.length < 5) {
@@ -18,8 +28,9 @@ if (isNaN(amountIn)) {
 
 // Define required parameters for ThalaswapRouter
 const network = Network.MAINNET; // Ensure this matches the actual enum value
-const fullnode = "https://fullnode.mainnet.aptoslabs.com/v1";
-const resourceAddress = "0x48271d39d0b05bd6efca2278f22277d6fcc375504f9839fd73f74ace240861af"; // Replace with actual resource address
+const fullnode = process.env.RPC_URL|| "https://fullnode.mainnet.aptoslabs.com/v1";
+const resourceAddress = "0x48271d39d0b05bd6efca2278f22277d6fcc375504f9839fd73f74ace240861af"; 
+const v2ResourceAddress="0x60955b957956d79bc80b096d3e41bad525dd400d8ce957cdeb05719ed1e4fc26"// Replace with actual resource address
 const multirouterAddress = "0x60955b957956d79bc80b096d3e41bad525dd400d8ce957cdeb05719ed1e4fc26"; // Replace with actual multirouter address
 
 // Instantiate ThalaswapRouter with the required parameters
@@ -27,6 +38,7 @@ const router = new ThalaswapRouter(
   network,
   fullnode,
   resourceAddress,
+  v2ResourceAddress,
   multirouterAddress
 );
 
@@ -36,6 +48,7 @@ async function getSwapRoute(fromToken, toToken, amountIn) {
         
         // Check if route is defined and has amountOut
         if (route && typeof route.amountOut === 'number') {
+            // console.log(route)
             // Output only the amountOut value
             console.log(route.amountOut);
         } else {

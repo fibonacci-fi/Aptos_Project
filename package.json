@@ -12,6 +12,7 @@
   "dependencies": {
     "@pontem/liquidswap-sdk": "^0.7.3",
     "@thalalabs/router-sdk": "^3.4.0",
+    "dotenv": "^16.4.5",
     "fs": "^0.0.1-security",
     "js-yaml": "^4.1.0",
     "tslib": "^2.7.0"
