@@ -5,70 +5,104 @@
 - Python 3.7 or higher
 - `pip` version 9.0.1 or higher
 
+### Overview
+
+The Aptos Indexer by Fibonacci Finance is a robust solution for processing and indexing transactions on the Aptos blockchain. This guide covers the setup and execution of the Example Event Processor, which demonstrates how to extract and analyze on-chain data, such as Total Value Locked (TVL), transaction volumes, and slippage metrics.
+
 ### Basic Tutorial
 
-In this tutorial, we will be going over how to create and run the Example Event Processor. All source code is in `aptos-indexer-processors/python/processors/example_event_processor`.
-
-1. Download the example:
-
-```
-# Clone the repository to get the example code:
-$ git clone https://github.com/aptos-labs/aptos-indexer-processors
-# Navigate to the python folder
-$ cd aptos-indexer-processors/python
-```
-
-2. Install all dependencies
-
-```
-poetry install
-```
-
-
-3. Prepare the `config.yaml` file.
-   Make sure to update the `config.yaml` file with the correct indexer settings and database credentials.
-
-   ```
-   $ cp config.yaml.example config.yaml
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/aptos-labs/aptos-indexer-processors
+   cd aptos-indexer-processors/python
    ```
 
-4. Define the data model and create the table(s).
+2. **Install Dependencies**
+   Use `poetry` to install required dependencies:
+   ```bash
+   poetry install
+   ```
 
-   - In this tutorial, we want to extract data about transaction events. In `models.py`, you can define an Events data model.
-   - The example uses Postgres. For now only Postgres is supported and we use SQLAlchemy ORM to interact with the Postgres database.
+3. **Configure Settings**
+   Update the `config.yaml` file with the correct indexer settings and database credentials:
+   ```bash
+   cp config.yaml.example config.yaml
+   ```
 
-5. Create a processor.
+4. **Define Data Models**
+   - Use `models.py` to define data models for the events you want to extract.
+   - PostgreSQL is supported, with SQLAlchemy used for ORM-based interactions.
 
-   - Extend `TransactionsProcessor`.
-   - In `process_transactions()`, implement the parsing logic and insert the rows into DB.
+5. **Implement the Processor**
+   - Extend `TransactionsProcessor` to parse transactions and save the data to the database.
+   - Modify `process_transactions()` to include custom logic for data extraction.
 
-6. Run `poetry run python -m processors.main -c config.yaml` to start indexing!
+6. **Run the Processor**
+   Execute the following command to start indexing:
+   ```bash
+   poetry run python -m processors.main -c config.yaml
+   ```
 
-7. (Optional) Run locally in Docker
+7. **Run in Docker (Optional)**
+   - Use the included `Dockerfile` to build and run the processor.
+   - Ensure `config.yaml` is present in the `python` folder:
+     ```bash
+     docker compose up --build --force-recreate
+     ```
 
-   - The included `Dockerfile` is already set up for you to run the example event processor in Docker.
-   - Create `config.yaml` under the `python` folder
-   - Run `docker compose up --build --force-recreate`.
+8. **Query Indexed Data**
+   Use tools like SQLAlchemy to fetch indexed data from the PostgreSQL database for further analysis or integration into your dApp.
 
-8. Query the data from database in your dApp. It's recommended to use SQLAlchemy for this part.
+---
 
 ## Development
 
-### Install all dependencies
-
+### Install Dependencies
 ```bash
 poetry install
 ```
 
-### Linting & autoformatting
-
+### Linting & Autoformatting
 ```bash
-poetry run poe pyright # typecheck
-poetry run poe format # autoformat via black
+poetry run poe pyright  # Type checking
+poetry run poe format   # Autoformat using Black
 ```
 
-### Run locally in Docker
-
+### Run Locally in Docker
 ```bash
 docker compose up --build --force-recreate
 ```
+
+---
+
+## Features
+
+### Comprehensive Metrics
+- Extracts data for TVL, transaction volume, and slippage.
+- Aggregates 24-hour, weekly, and monthly statistics.
+
+### Real-Time Integrations
+- Utilizes the Panora API for live token price updates.
+
+### Protocol Support
+- Compatible with protocols like LiquidSwap, ThalaSwap, PancakeSwap, and SushiSwap.
+- Expandable to support additional DeFi protocols.
+
+### Robust Deployment
+- Deployed on Google Cloud for scalability and reliability.
+
+### Advanced Analytics
+- Supports database-ready outputs for use with analytical dashboards and reporting tools.
+
+### Error Handling
+- Includes detailed logging and error management for enhanced reliability.
+
+---
+
+## Notes
+
+- Ensure `config.yaml` is properly configured before running.
+- PostgreSQL is required for database interactions.
+- The example code is designed for educational purposes; customize it for production-grade applications.
+
+For more details about the Aptos Indexer and its features, refer to the [Aptos Indexer Documentation](#).
